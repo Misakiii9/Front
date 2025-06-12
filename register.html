@@ -6,41 +6,54 @@
   <link rel="stylesheet" href="styles.css">
   <script>
     function validarFormulario() {
-      const letras = /^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/;
-      const nombre = document.getElementById("nombre");
-      const segundo = document.getElementById("segundo");
-      const apPat = document.getElementById("apellidoP");
-      const apMat = document.getElementById("apellidoM");
-      const pass = document.getElementById("password").value;
-      const confirm = document.getElementById("confirmar").value;
+      const soloLetras = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;
 
-      if (!letras.test(nombre.value) || !letras.test(segundo.value) ||
-          !letras.test(apPat.value) || !letras.test(apMat.value)) {
-        alert("Los campos de nombre y apellidos solo deben contener letras.");
+      const nombre = document.getElementById("nombre").value.trim();
+      const segundo = document.getElementById("segundo-nombre").value.trim();
+      const paterno = document.getElementById("apellido-p").value.trim();
+      const materno = document.getElementById("apellido-m").value.trim();
+      const pass1 = document.getElementById("password").value;
+      const pass2 = document.getElementById("confirm-password").value;
+
+      // Validar solo letras
+      if (!soloLetras.test(nombre) || !soloLetras.test(segundo) ||
+          !soloLetras.test(paterno) || !soloLetras.test(materno)) {
+        alert("Los nombres y apellidos solo deben contener letras.");
         return false;
       }
-      if (pass !== confirm) {
+
+      // Validar que coincidan contraseñas
+      if (pass1 !== pass2) {
         alert("Las contraseñas no coinciden.");
         return false;
       }
+
       return true;
     }
   </script>
 </head>
 <body>
-  <h1>Registro</h1>
-  <form onsubmit="return validarFormulario()">
-    <label>Nombre: <input type="text" id="nombre" required></label><br>
-    <label>Segundo Nombre: <input type="text" id="segundo" required></label><br>
-    <label>Apellido Paterno: <input type="text" id="apellidoP" required></label><br>
-    <label>Apellido Materno: <input type="text" id="apellidoM" required></label><br>
-    <label>Password: <input type="password" id="password" required></label><br>
-    <label>Confirmar Password: <input type="password" id="confirmar" required></label><br>
+  <h1>Formulario de Registro</h1>
+  <form action="index.html" method="get" onsubmit="return validarFormulario()">
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" required>
+
+    <label for="segundo-nombre">Segundo Nombre:</label>
+    <input type="text" id="segundo-nombre" name="segundo-nombre" required>
+
+    <label for="apellido-p">Apellido Paterno:</label>
+    <input type="text" id="apellido-p" name="apellido-p" required>
+
+    <label for="apellido-m">Apellido Materno:</label>
+    <input type="text" id="apellido-m" name="apellido-m" required>
+
+    <label for="password">Contraseña:</label>
+    <input type="password" id="password" name="password" required>
+
+    <label for="confirm-password">Confirmar Contraseña:</label>
+    <input type="password" id="confirm-password" name="confirm-password" required>
+
     <button type="submit">Registrarse</button>
   </form>
-  <nav>
-    <a href="index.html">Inicio</a> |
-    <a href="bienvenida.html">Bienvenida</a>
-  </nav>
 </body>
 </html>
